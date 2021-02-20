@@ -60,13 +60,13 @@ let interfaceRouter = """
 import Foundation
 import UIKit
 
-protocol \(prefix)RouterInterface: class {
+protocol \(prefix)RouterProtocol: class {
 
 }
 
 class \(prefix)Router: NSObject {
 
-    weak var presenter: \(prefix)PresenterInterface?
+    weak var presenter: \(prefix)PresenterProtocol?
 
     static func setupModule() -> \(prefix)ViewController {
         let vc = \(prefix)ViewController()
@@ -81,7 +81,7 @@ class \(prefix)Router: NSObject {
     }
 }
 
-extension \(prefix)Router: \(prefix)RouterInterface {
+extension \(prefix)Router: \(prefix)RouterProtocol {
 
 }
 
@@ -93,24 +93,24 @@ let interfacePresenter = """
 
 import Foundation
 
-protocol \(prefix)PresenterInterface: class {
+protocol \(prefix)PresenterProtocol: class {
 
 }
 
 class \(prefix)Presenter {
 
-    unowned var view: \(prefix)ViewControllerInterface
-    let router: \(prefix)RouterInterface?
-    let interactor: \(prefix)InteractorInterface?
+    unowned var view: \(prefix)ViewControllerProtocol
+    let router: \(prefix)RouterProtocol?
+    let interactor: \(prefix)InteractorProtocol?
 
-    init(interactor: \(prefix)InteractorInterface, router: \(prefix)RouterInterface, view: \(prefix)ViewControllerInterface) {
+    init(interactor: \(prefix)InteractorProtocol, router: \(prefix)RouterProtocol, view: \(prefix)ViewControllerProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
     }
 }
 
-extension \(prefix)Presenter: \(prefix)PresenterInterface {
+extension \(prefix)Presenter: \(prefix)PresenterProtocol {
 
 }
 
@@ -121,15 +121,15 @@ let interfaceViewController = """
 
 import UIKit
 
-protocol \(prefix)ViewControllerInterface: class {
+protocol \(prefix)ViewControllerProtocol: class {
 
 }
 
 class \(prefix)ViewController: UIViewController {
-    var presenter: \(prefix)PresenterInterface?
+    var presenter: \(prefix)PresenterProtocol?
 }
 
-extension \(prefix)ViewController: \(prefix)ViewControllerInterface {
+extension \(prefix)ViewController: \(prefix)ViewControllerProtocol {
 
 }
 
@@ -140,15 +140,15 @@ let interfaceInteractor = """
 
 import Foundation
 
-protocol \(prefix)InteractorInterface: class {
+protocol \(prefix)InteractorProtocol: class {
 
 }
 
 class \(prefix)Interactor {
-    weak var presenter: \(prefix)PresenterInterface?
+    weak var presenter: \(prefix)PresenterProtocol?
 }
 
-extension \(prefix)Interactor: \(prefix)InteractorInterface {
+extension \(prefix)Interactor: \(prefix)InteractorProtocol {
 
 }
 
